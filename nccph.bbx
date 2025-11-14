@@ -1,0 +1,153 @@
+\ProvidesFile{nccph.bbx}[2025/11/13 NCCPh= Nova Criteria Citationem Philologicam]
+\RequireBibliographyStyle{standard}
+
+\setlength{\bibitemsep}{0pt}
+\setlength{\parskip}{0pt}
+
+\ExecuteBibliographyOptions{giveninits=true, maxnames=99}
+\DeclareNameAlias{default}{family-given}
+\DeclareNameAlias{sortname}{family-given}
+
+\protected\def\mkbibnamelastdelim{\ifnum\value{listcount}>\c@maxnames\else\text{\addspace\&}\fi\addspace}
+\protected\def\mkbibnameyeardelim{\addspace}
+
+\DeclareFieldFormat{title}{\mkbibemph{#1}}
+\DeclareFieldFormat[article]{title}{``#1''}
+\DeclareFieldFormat[online]{title}{``#1''}
+\DeclareFieldFormat[incollection]{booktitle}{\mkbibemph{#1}}
+
+\DeclareFieldFormat{journaltitle}{#1}
+\DeclareFieldFormat{url}{\normalfont\url{#1}}
+\DeclareFieldFormat{pages}{#1}
+\DeclareFieldFormat{volume}{#1}
+
+\newbibmacro*{quickdate}{%
+  \iffieldundef{year}{\printtext[parens]{s.\,f.}}{\printtext[parens]{\printdate}}}
+
+\newbibmacro*{printvolumetome}{%
+  \iffieldundef{volume}{}{%
+    \setunit{\addspace}%
+    \printtext[parens]{%
+      \printtext{v.\addspace}\printfield{volume}%
+      \iffieldundef{tomus}{}{%
+        \setunit{\addcomma\space}%
+        \printtext{t.\addspace}\printfield{tomus}%
+      }%
+      \iffieldundef{fasciculus}{}{% 
+        \setunit{\addcomma\space}%
+        \printtext{fasc.\addspace}\printfield{fasciculus}%
+      }%
+    }%
+    \addperiod
+  }%
+}
+
+\newbibmacro*{serie+number}{%
+    \iffieldundef{series}{}{%
+        \printtext[parens]{%
+            \printfield{series}%
+            \iffieldundef{number}{}{%
+                \setunit{\addcomma\space}%
+                \printtext{Nº}\addspace\printfield{number}%
+            }%
+        }%
+        \setunit{\addcomma\space}%
+    }%
+    \iffieldundef{series}{\iffieldundef{number}{}{%
+        \printtext[parens]{%
+            \printtext{Nº}\addspace\printfield{number}%
+        }%
+        \setunit{\addcomma\space}%
+    }}{}%
+}
+
+
+\DeclareBibliographyDriver{book}{%
+  \usebibmacro{begentry}%
+  \printnames{author}%
+  \setunit{\addspace}\usebibmacro{quickdate}%
+  \newunit
+  \printfield{title}%
+  \ifnameundef{rauthor}{\addperiod}{%
+    \setunit{\addspace}%
+    \printtext[parens]{\printfield{role}\printtext{=}\addspace\printnames{rauthor}}%
+    \addperiod
+  }%
+  \usebibmacro{printvolumetome}%
+  \newunit
+  \printlist{publisher}%
+  \newunit
+  \printfield{url}%
+  \ifbibstring{nodate}{\setunit{\adddot\addspace}}{}%
+  \iffieldundef{sigla}{}{%
+    \addperiod\addspace
+    \printtext{<}\printfield{sigla}\printtext{>}%
+  }
+  \usebibmacro{finentry}%
+}
+
+\DeclareBibliographyDriver{article}{%
+  \usebibmacro{begentry}%
+  \printnames{author}%
+  \setunit{\addspace}\usebibmacro{quickdate}%
+  \newunit
+  \printfield{title}%
+  \newunit
+  \printfield{journaltitle}%
+  \setunit{\addcomma\space}%
+  \printfield{volume}\printfield{number}%
+  \setunit{\addcomma\space}\printfield{pages}%
+  \newunit
+  \printlist{publisher}%
+  \ifbibstring{nodate}{\setunit{\adddot\addspace}}{}%
+  \iffieldundef{sigla}{}{%
+    \addperiod\addspace
+    \printtext{<}\printfield{sigla}\printtext{>}%
+  }
+  \usebibmacro{finentry}%
+}
+
+\DeclareBibliographyDriver{online}{%
+  \usebibmacro{begentry}%
+  \printnames{author}%
+  \setunit{\addspace}\usebibmacro{quickdate}%
+  \newunit
+  \printfield{title}%
+  \newunit
+  \printfield{url}%
+  \ifbibstring{nodate}{\setunit{\adddot\addspace}}{}%
+  \iffieldundef{sigla}{}{%
+    \addperiod\addspace
+    \printtext{<}\printfield{sigla}\printtext{>}%
+  }
+  \usebibmacro{finentry}%
+}
+
+\DeclareBibliographyDriver{incollection}{%
+  \usebibmacro{begentry}%
+  \printnames{author}%
+  \setunit{\addspace}\usebibmacro{quickdate}%
+  \newunit
+  \printfield{title}%
+  \addperiod\space
+  \printfield{booktitle}%
+  \setunit{\addspace}%
+  \usebibmacro{serie+number}%
+  \iffieldundef{pages}{}{%
+    \printtext{\addcomma\space}%
+    \printfield{pages}%
+  }%
+  \newunit
+  \printlist{publisher}%
+  \ifbibstring{nodate}{\setunit{\adddot\addspace}}{}%
+  \iffieldundef{sigla}{}{%
+    \addperiod\addspace
+    \printtext{<}\printfield{sigla}\printtext{>}%
+  }
+  \usebibmacro{finentry}%
+}
+
+\AtBeginDocument{%
+  \providecommand*{\UrlFont}{}
+  \renewcommand*{\UrlFont}{\rmfamily\normalfont}%
+}

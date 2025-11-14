@@ -1,0 +1,10 @@
+\DeclareDatamodelFields[type=list,datatype=name]{rauthor}
+\DeclareDatamodelFields[type=field,datatype=literal]{role}
+\DeclareDatamodelEntryfields{rauthor,role}
+\DeclareDatamodelFields[type=field,datatype=literal]{sigla}
+\DeclareDatamodelEntryfields{sigla}
+%
+\DeclareDatamodelFields[type=field,datatype=literal]{tomus}
+\DeclareDatamodelEntryfields{tomus}
+\DeclareDatamodelFields[type=field,datatype=literal]{fasciculus}
+\DeclareDatamodelEntryfields{fasciculus}
