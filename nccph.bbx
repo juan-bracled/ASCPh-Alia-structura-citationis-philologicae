@@ -20,12 +20,49 @@
 \DeclareFieldFormat{url}{\normalfont\url{#1}}
 \DeclareFieldFormat{pages}{#1}
 \DeclareFieldFormat{volume}{#1}
+\DeclareFieldFormat{edition}{#1}
 %
 \newbibmacro*{quickdate}{%
   \iffieldundef{year}{\printtext[parens]{S.\,F.}}{\printtext[parens]{\printdate}}}
 %
 \newbibmacro*{printvolumetome}{%
-  \iffieldundef{volume}{}{%
+  \iffieldundef{volume}{%
+    \iffieldundef{tomus}{%
+      \iffieldundef{fasciculus}{%
+        \iffieldundef{edition}{}{%
+          \setunit{\addspace}%
+          \printtext[parens]{%
+            \printfield{edition}\printtext{\textsuperscript{ed.}}%
+          }%
+          \addperiod
+        }%
+      }{%
+        \setunit{\addspace}%
+        \printtext[parens]{%
+          \printtext{fasc.\addspace}\printfield{fasciculus}%
+          \iffieldundef{edition}{}{%
+            \setunit{\addcomma\space}%
+            \printfield{edition}\printtext{\textsuperscript{ed.}}%
+          }%
+        }%
+        \addperiod
+      }%
+    }{%
+      \setunit{\addspace}%
+      \printtext[parens]{%
+        \printtext{t.\addspace}\printfield{tomus}%
+        \iffieldundef{fasciculus}{}{%
+          \setunit{\addcomma\space}%
+          \printtext{fasc.\addspace}\printfield{fasciculus}%
+        }%
+        \iffieldundef{edition}{}{%
+          \setunit{\addcomma\space}%
+          \printfield{edition}\printtext{\textsuperscript{ed.}}%
+        }%
+      }%
+      \addperiod
+    }%
+  }{%
     \setunit{\addspace}%
     \printtext[parens]{%
       \printtext{v.\addspace}\printfield{volume}%
@@ -33,27 +70,13 @@
         \setunit{\addcomma\space}%
         \printtext{t.\addspace}\printfield{tomus}%
       }%
-      \iffieldundef{fasciculus}{}{% 
+      \iffieldundef{fasciculus}{}{%
         \setunit{\addcomma\space}%
         \printtext{fasc.\addspace}\printfield{fasciculus}%
       }%
-    }%
-    \addperiod
-  }%
-}
-
-\newbibmacro*{printtomevolume}{%
-  \iffieldundef{tomus}{}{%
-    \setunit{\addspace}%
-    \printtext[parens]{%
-      \printtext{t.\addspace}\printfield{tomus}%
-      \iffieldundef{volume}{}{%
+      \iffieldundef{edition}{}{%
         \setunit{\addcomma\space}%
-        \printtext{v.\addspace}\printfield{volume}%
-      }%
-      \iffieldundef{fasciculus}{}{% 
-        \setunit{\addcomma\space}%
-        \printtext{fasc.\addspace}\printfield{fasciculus}%
+        \printfield{edition}\printtext{\textsuperscript{ed.}}%
       }%
     }%
     \addperiod
@@ -118,7 +141,7 @@
   }
   \usebibmacro{finentry}%
 }
-
+%
 \DeclareBibliographyDriver{article}{%
   \usebibmacro{begentry}%
   \printnames{author}%
@@ -150,7 +173,7 @@
   }
   \usebibmacro{finentry}%
 }
-
+%
 \DeclareBibliographyDriver{online}{%
   \usebibmacro{begentry}%
   \printnames{author}%
@@ -169,7 +192,7 @@
   }
   \usebibmacro{finentry}%
 }
-
+%
 \DeclareBibliographyDriver{incollection}{%
   \usebibmacro{begentry}%
   \printnames{author}%
