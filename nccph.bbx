@@ -39,7 +39,7 @@
       }{%
         \setunit{\addspace}%
         \printtext[parens]{%
-          \printtext{fasc.\addspace}\printfield{fasciculus}%
+          \printtext{Fasc.\addspace}\printfield{fasciculus}%
           \iffieldundef{edition}{}{%
             \setunit{\addcomma\space}%
             \printfield{edition}\printtext{\textsuperscript{ed.}}%
@@ -50,10 +50,10 @@
     }{%
       \setunit{\addspace}%
       \printtext[parens]{%
-        \printtext{t.\addspace}\printfield{tomus}%
+        \printtext{Tom.\addspace}\printfield{tomus}%
         \iffieldundef{fasciculus}{}{%
           \setunit{\addcomma\space}%
-          \printtext{fasc.\addspace}\printfield{fasciculus}%
+          \printtext{Fasc.\addspace}\printfield{fasciculus}%
         }%
         \iffieldundef{edition}{}{%
           \setunit{\addcomma\space}%
@@ -65,14 +65,14 @@
   }{%
     \setunit{\addspace}%
     \printtext[parens]{%
-      \printtext{v.\addspace}\printfield{volume}%
+      \printtext{Vol.\addspace}\printfield{volume}%
       \iffieldundef{tomus}{}{%
         \setunit{\addcomma\space}%
-        \printtext{t.\addspace}\printfield{tomus}%
+        \printtext{Tom.\addspace}\printfield{tomus}%
       }%
       \iffieldundef{fasciculus}{}{%
         \setunit{\addcomma\space}%
-        \printtext{fasc.\addspace}\printfield{fasciculus}%
+        \printtext{Fasc.\addspace}\printfield{fasciculus}%
       }%
       \iffieldundef{edition}{}{%
         \setunit{\addcomma\space}%
