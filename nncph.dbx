@@ -1,5 +1,0 @@
-\DeclareDatamodelFields[type=field,datatype=literal]{rauthor}
-\DeclareDatamodelFields[type=field,datatype=literal]{sigla}
-\DeclareDatamodelFields[type=field,datatype=literal]{tomus}
-\DeclareDatamodelFields[type=field,datatype=literal]{fasciculus}
-\DeclareDatamodelEntryfields{rauthor,sigla,tomus,fasciculus}
